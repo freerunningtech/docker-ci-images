@@ -30,17 +30,20 @@ RUN apt-get -y install --no-install-recommends \
     libmagickcore-dev imagemagick libmagickwand-dev \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN curl -Lo /tmp/erlang-repo.deb http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && \
+    dpkg -i /tmp/erlang-repo.deb && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends erlang && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 RUN npm install -g coffee phantomjs svgo karma-cli
 
 ADD install_rubies.sh /
-RUN bash install_rubies.sh
-RUN rm -Rf /usr/local/src/*
+RUN bash install_rubies.sh && \
+    rm -Rf /usr/local/src/*
 
 RUN sed -i 's/md5\|peer/trust/' /etc/postgresql/*/main/pg_hba.conf && \
     printf "# Evil performance options\nfsync=off\n#full_page_writes=off\nsynchronous_commit=off\n" >> /etc/postgresql/9.3/main/postgresql.conf
 
-ENV GEM_HOME /cache
-ENV BUNDLE_APP_CONFIG /cache
-
-ADD init.sh /
 CMD sh /init.sh
+ADD init.sh run_test.sh /
