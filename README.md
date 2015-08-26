@@ -4,6 +4,16 @@ Docker images for running CI tests in isolated containers.
 
 For now this is a single image.
 
+## Environment Options
+
+| Key | Possible Values | Description |
+| --- | --------------- | ----------- |
+| MYSQL | 1 | Starts MySQL Server |
+| POSTGRESQL | 1 | Starts PostgreSQL Server |
+| XVFB | 1 | Starts Xvfb on display :99 |
+| ELIXIR | 1.0.5 | Installs elixir 1.0.5 including hex and rebar |
+| RUBY | 2.2.2 | Switches to ruby 2.2.2 before running `ci_run.sh` |
+
 ## Example Usage
 
 in [porkchop](http://github.com/freerunningtech/porkchop)'s work directory
