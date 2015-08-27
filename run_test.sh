@@ -21,4 +21,8 @@ else
 	chruby_auto || true
 fi
 set -x
-. ci_run.sh
+if [ -e ".ci.sh"  ]; then
+	. .ci.sh
+else
+	. ci_run.sh
+fi
