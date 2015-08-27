@@ -10,6 +10,8 @@ fi
 export GEM_HOME=/cache
 export BUNDLE_APP_CONFIG=/cache
 
+export RAILS_ENV=test RACK_ENV=test
+
 . /usr/local/share/chruby/chruby.sh
 . /usr/local/share/chruby/auto.sh
 if [ -n "$RUBY" ]; then
@@ -20,6 +22,11 @@ else
 	chruby 2.2.2 || true
 	chruby_auto || true
 fi
+
+if [ -n "$POSTGRESQL" ]; then
+	export DATABASE_URL=postgresql://ci@localhost/ci
+fi
+
 set -x
 if [ -e ".ci.sh"  ]; then
 	. .ci.sh
