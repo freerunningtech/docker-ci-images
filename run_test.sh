@@ -24,6 +24,7 @@ else
 fi
 
 if [ -n "$POSTGRESQL" ]; then
+	createdb ci
 	export DATABASE_URL=postgresql://ci@localhost/ci
 fi
 
