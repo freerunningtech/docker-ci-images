@@ -7,8 +7,14 @@
 set -e
 
 if [ -n "$POSTGRESQL" ]; then
+	# Make PostgreSQL YOLOFAST
+	# Suggestions from http://stackoverflow.com/questions/9407442/optimise-postgresql-for-fast-testing
 	sed -i 's/md5\|peer/trust/' /etc/postgresql/*/main/pg_hba.conf
-	printf "fsync=off\n#full_page_writes=off\nsynchronous_commit=off\n" >> /etc/postgresql/9.3/main/postgresql.conf
+	cat >> /etc/postgresql/9.3/main/postgresql.conf <<EOF
+fsync=off
+full_page_writes=off
+synchronous_commit=off
+EOF
 
 	service postgresql start
 	createuser -U postgres -s ci
@@ -16,6 +22,19 @@ if [ -n "$POSTGRESQL" ]; then
 fi
 
 if [ -n "$MYSQL" ]; then
+	# Make MySQL YOLOFAST
+	# Based on http://www.tocker.ca/2013/11/04/reducing-mysql-durability-for-testing.html
+	cat > /etc/mysql/conf.d/unsafe_but_fast.cnf <<EOF
+[mysqld]
+sync_frm=0
+innodb-flush-log-at-trx-commit=0
+innodb_flush_method=nosync
+innodb-doublewrite=0
+innodb-checksums=0
+innodb_support_xa=0
+sync_binlog=0
+EOF
+
 	service mysql start
 	mysql -uroot -e "create database ci"
 fi
