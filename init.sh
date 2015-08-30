@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 # Run as root as the entry point of the container
 # It should setup the necessary services, create and switch to the ci user, and
 # start the rest of the build.
