@@ -2,6 +2,11 @@
 
 set -e
 
+if [ -n "$XVFB" ]; then
+	Xvfb :99 -ac >/dev/null 2>&1 &
+	export DISPLAY=:99
+fi
+
 if [ -n "$ELIXIR" ] ;then
 	export PATH="$PATH:/opt/elixir/bin"
 	export MIX_ENV=test

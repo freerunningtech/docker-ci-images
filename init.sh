@@ -6,11 +6,6 @@
 
 set -e
 
-if [ -n "$XVFB" ]; then
-	Xvfb :99 -ac 1024x768x24 >/dev/null 2>&1 &
-	export DISPLAY=:99
-fi
-
 if [ -n "$POSTGRESQL" ]; then
 	sed -i 's/md5\|peer/trust/' /etc/postgresql/*/main/pg_hba.conf
 	printf "fsync=off\n#full_page_writes=off\nsynchronous_commit=off\n" >> /etc/postgresql/9.3/main/postgresql.conf
