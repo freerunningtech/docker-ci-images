@@ -26,5 +26,5 @@ bundle install
 bundle exec rake db:test:prepare
 bundle exec rspec
 EOF
-docker run --rm -it -v `pwd`:/workspace -v /tmp/porkchop_cache:/cache -w /workspace -e POSTGRESQL=1 freerunning/frt-ci
+docker run --rm -it -v `pwd`:/workspace -v /tmp/porkchop_cache:/cache -e POSTGRESQL=1 freerunning/frt-ci
 ```
