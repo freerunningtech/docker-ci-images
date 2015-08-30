@@ -42,8 +42,5 @@ ADD install_rubies.sh /
 RUN bash install_rubies.sh && \
     rm -Rf /usr/local/src/*
 
-RUN sed -i 's/md5\|peer/trust/' /etc/postgresql/*/main/pg_hba.conf && \
-    printf "# Evil performance options\nfsync=off\n#full_page_writes=off\nsynchronous_commit=off\n" >> /etc/postgresql/9.3/main/postgresql.conf
-
 CMD sh /init.sh
 ADD init.sh run_test.sh /

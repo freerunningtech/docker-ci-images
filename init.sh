@@ -10,6 +10,9 @@ if [ -n "$XVFB" ]; then
 fi
 
 if [ -n "$POSTGRESQL" ]; then
+	sed -i 's/md5\|peer/trust/' /etc/postgresql/*/main/pg_hba.conf
+	printf "fsync=off\n#full_page_writes=off\nsynchronous_commit=off\n" >> /etc/postgresql/9.3/main/postgresql.conf
+
 	service postgresql start
 	createuser -U postgres -s ci
 fi
