@@ -26,7 +26,7 @@ bundle install
 bundle exec rake db:test:prepare
 bundle exec rspec
 EOF
-docker run --rm -v `pwd`:/workspace -v /tmp/porkchop_cache:/cache -e POSTGRESQL=1 freerunning/frt-ci
+docker run --rm -v `pwd`:/workspace -v /tmp/ci_cache:/cache -e POSTGRESQL=1 freerunning/frt-ci
 ```
 
 ## Advanced Usage
@@ -34,11 +34,11 @@ docker run --rm -v `pwd`:/workspace -v /tmp/porkchop_cache:/cache -e POSTGRESQL=
 If you specify additional arguments after the image, they will be interpreted as commands to run instead of the run_test script. The following will drop you in a shell as the ci user (ENV however, will not be setup correctly).
 
 ```
-docker run --rm -v `pwd`:/workspace -v /tmp/porkchop_cache:/cache -e POSTGRESQL=1 freerunning/frt-ci /bin/bash
+docker run --rm -v `pwd`:/workspace -v /tmp/ci_cache:/cache -e POSTGRESQL=1 freerunning/frt-ci /bin/bash
 ```
 
 If instead you want to run commands as the root user, before services have been started, the ENTRYPOINT can be overridden
 
 ```
-docker run --rm -v `pwd`:/workspace -v /tmp/porkchop_cache:/cache -e POSTGRESQL=1 --entrypoint=/bin/bash freerunning/frt-ci
+docker run --rm -v `pwd`:/workspace -v /tmp/ci_cache:/cache -e POSTGRESQL=1 --entrypoint=/bin/bash freerunning/frt-ci
 ```
