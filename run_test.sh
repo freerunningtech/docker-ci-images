@@ -13,14 +13,16 @@ export BUNDLE_APP_CONFIG=/cache
 export RAILS_ENV=test RACK_ENV=test
 
 . /usr/local/share/chruby/chruby.sh
-. /usr/local/share/chruby/auto.sh
 if [ -n "$RUBY" ]; then
 	# Use the ruby version asked for
 	chruby "$RUBY"
+elif [ -e ".ruby-version" ]; then
+	# Autodetect a ruby version
+	. /usr/local/share/chruby/auto.sh
+	chruby_auto
 else
-	# Try to autodetect a ruby
-	chruby 2.2.2 || true
-	chruby_auto || true
+	# Use a modern default
+	chruby 2.2.2
 fi
 
 if [ -n "$POSTGRESQL" ]; then
