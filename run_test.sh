@@ -33,9 +33,9 @@ else
 fi
 
 if [ -n "$POSTGRESQL" ]; then
-	export DATABASE_URL=postgresql://ci@localhost/ci
+	export DATABASE_URL=postgresql:///ci
 elif [ -n "$MYSQL" ]; then
-	export DATABASE_URL=mysql2://ci@localhost/ci
+	export DATABASE_URL=mysql2:///ci
 fi
 
 set -x
