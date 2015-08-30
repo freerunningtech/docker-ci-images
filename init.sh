@@ -15,10 +15,12 @@ if [ -n "$POSTGRESQL" ]; then
 
 	service postgresql start
 	createuser -U postgres -s ci
+	createdb -U postgres ci
 fi
 
 if [ -n "$MYSQL" ]; then
 	service mysql start
+	mysql -uroot -e "create database ci"
 fi
 
 if [ -n "$MEMCACHED" ]; then

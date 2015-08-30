@@ -24,8 +24,9 @@ else
 fi
 
 if [ -n "$POSTGRESQL" ]; then
-	createdb ci
 	export DATABASE_URL=postgresql://ci@localhost/ci
+elif [ -n "$MYSQL" ]; then
+	export DATABASE_URL=mysql://ci@localhost/ci
 fi
 
 set -x
