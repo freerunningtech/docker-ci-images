@@ -10,6 +10,7 @@ For now this is a single image.
 | --- | --------------- | ----------- |
 | MYSQL | 1 | Starts MySQL Server |
 | POSTGRESQL | 1 | Starts PostgreSQL Server |
+| MEMCACHED | 1 | Starts memcached Server |
 | XVFB | 1 | Starts Xvfb on display :99 |
 | ELIXIR | 1.0.5 | Installs elixir 1.0.5 including hex and rebar |
 | RUBY | 2.2.2 | Switches to ruby 2.2.2 before running `ci_run.sh` |

@@ -21,6 +21,10 @@ if [ -n "$MYSQL" ]; then
 	service mysql start
 fi
 
+if [ -n "$MEMCACHED" ]; then
+	service memcached start
+fi
+
 if [ -n "$ELIXIR" ]; then
 	mkdir -p /opt/elixir
 	curl -Lo /tmp/elixir.zip "https://github.com/elixir-lang/elixir/releases/download/v$ELIXIR/Precompiled.zip"
