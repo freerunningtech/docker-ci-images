@@ -42,5 +42,10 @@ ADD install_rubies.sh /
 RUN bash install_rubies.sh && \
     rm -Rf /usr/local/src/*
 
-CMD sh /init.sh
+RUN curl -Lo /usr/local/bin/gosu https://github.com/tianon/gosu/releases/download/1.4/gosu-amd64 && \
+    chmod a+x /usr/local/bin/gosu
+
+WORKDIR /workspace
+ENTRYPOINT ["bash", "/init.sh"]
+CMD ["bash", "/run_test.sh"]
 ADD init.sh run_test.sh /

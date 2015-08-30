@@ -42,4 +42,4 @@ CI_UID=$(stat -c "%u" /workspace)
 useradd ci -u "$CI_UID" -d /cache
 chown ci:ci /cache
 
-su -c "bash /run_test.sh" ci
+exec gosu ci "$@"
