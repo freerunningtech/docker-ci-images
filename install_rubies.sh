@@ -9,20 +9,11 @@ sudo make install
 cd /
 rm -Rf chruby-*
 
-# Install ruby-install
-curl -Lo ruby-install-0.5.0.tar.gz https://github.com/postmodern/ruby-install/archive/v0.5.0.tar.gz
-tar -xzvf ruby-install-0.5.0.tar.gz
-cd ruby-install-0.5.0/
-make install
-cd /
-rm -Rf ruby-install-*
+RUBY_VERSIONS="2.2.2 2.2.3 2.1.6 2.1.7"
+mkdir -p /opt/rubies
 
-# Install our rubies
-export MAKEFLAGS="-j4"
-
-#for ruby_version in 2.2.3 2.2.2 2.1.6; do
-for ruby_version in 2.2.2; do
-	ruby-install ruby "$ruby_version" -- --disable-install-rdoc
+for ruby_version in $RUBY_VERSIONS; do
+	curl -L "http://rubies.travis-ci.org/ubuntu/14.04/x86_64/ruby-${ruby_version}.tar.bz2" | tar -xjC /opt/rubies/
 	(
 	. /usr/local/share/chruby/chruby.sh
 	chruby "$ruby_version"

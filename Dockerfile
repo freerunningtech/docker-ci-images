@@ -39,8 +39,7 @@ RUN curl -Lo /tmp/erlang-repo.deb http://packages.erlang-solutions.com/erlang-so
 RUN npm install -g coffee phantomjs svgo karma-cli bower
 
 ADD install_rubies.sh /
-RUN bash install_rubies.sh && \
-    rm -Rf /usr/local/src/*
+RUN bash install_rubies.sh
 
 RUN curl -Lo /usr/local/bin/gosu https://github.com/tianon/gosu/releases/download/1.4/gosu-amd64 && \
     chmod a+x /usr/local/bin/gosu
