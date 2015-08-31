@@ -36,7 +36,7 @@ RUN curl -Lo /tmp/erlang-repo.deb http://packages.erlang-solutions.com/erlang-so
     apt-get install -y --no-install-recommends erlang && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN npm install -g coffee phantomjs svgo karma-cli
+RUN npm install -g coffee phantomjs svgo karma-cli bower
 
 ADD install_rubies.sh /
 RUN bash install_rubies.sh && \
