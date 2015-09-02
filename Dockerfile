@@ -4,14 +4,19 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # We need to update-locale first so that postgres will generate
 # the cluster with UTF-8
+# We also want curl as soon as possible
 RUN apt-get update && \
-    apt-get install -y locales && \
+    apt-get install --no-install-recommends -y locales curl && \
     locale-gen "en_US.UTF-8" && \
-    update-locale LANG=en_US.UTF-8
+    update-locale LANG=en_US.UTF-8 \
+ && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENV LANG en_US.utf8
 
-RUN apt-get -y install --no-install-recommends \
+RUN echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) contrib" >> /etc/apt/sources.list && \
+    curl -L http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add - && \
+    apt-get update && \
+    apt-get install --no-install-recommends -y \
     build-essential \
     git-core \
     curl libcurl4-openssl-dev libssl-dev \
@@ -28,13 +33,7 @@ RUN apt-get -y install --no-install-recommends \
     unzip zip \
     xvfb \
     libmagickcore-dev imagemagick libmagickwand-dev \
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN curl -Lo /tmp/erlang-repo.deb http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && \
-    dpkg -i /tmp/erlang-repo.deb && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends erlang && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN npm install -g coffee phantomjs svgo karma-cli bower
 
