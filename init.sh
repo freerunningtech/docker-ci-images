@@ -6,6 +6,11 @@
 
 set -e
 
+# We want to have the same UID as the user on the host system
+CI_UID=$(stat -c "%u" /workspace)
+useradd ci -u "$CI_UID" -d /cache
+chown ci:ci /cache
+
 if [ -n "$POSTGRESQL" ]; then
 	# Make PostgreSQL YOLOFAST
 	# Suggestions from http://stackoverflow.com/questions/9407442/optimise-postgresql-for-fast-testing
@@ -19,6 +24,7 @@ EOF
 	service postgresql start
 	createuser -U postgres -s ci
 	createdb -U postgres ci
+	export DATABASE_URL=postgresql:///ci
 fi
 
 if [ -n "$MYSQL" ]; then
@@ -37,6 +43,7 @@ EOF
 
 	service mysql start
 	mysql -uroot -e "create database ci"
+	export DATABASE_URL=mysql2:///ci
 fi
 
 if [ -n "$MEMCACHED" ]; then
@@ -52,12 +59,19 @@ if [ -n "$ELIXIR" ]; then
 	curl -Lo /tmp/elixir.zip "https://github.com/elixir-lang/elixir/releases/download/v$ELIXIR/Precompiled.zip"
 	unzip -qq /tmp/elixir.zip -d /opt/elixir
 	export PATH="$PATH:/opt/elixir/bin"
+	export MIX_ENV=test
 	rm /tmp/elixir.zip
+	gosu ci mix local.hex --force
+	gosu ci mix local.rebar --force
 fi
 
-# We want to have the same UID as the user on the host system
-CI_UID=$(stat -c "%u" /workspace)
-useradd ci -u "$CI_UID" -d /cache
-chown ci:ci /cache
+if [ -n "$XVFB" ]; then
+	gosu ci Xvfb :99 -ac >/dev/null 2>&1 &
+	export DISPLAY=:99
+fi
+
+export GEM_HOME=/cache
+export BUNDLE_APP_CONFIG=/cache
+export RAILS_ENV=test RACK_ENV=test
 
 exec gosu ci "$@"
