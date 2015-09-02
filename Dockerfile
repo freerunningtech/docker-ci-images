@@ -22,7 +22,7 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) con
     curl libcurl4-openssl-dev libssl-dev \
     libreadline-dev \
     zlib1g zlib1g-dev \
-    libyaml-dev libgdbm-dev libncurses5-dev libffi-dev \
+    libyaml-dev libgdbm-dev libncurses5-dev libffi-dev libgmp3-dev \
     libxslt-dev libxml2-dev \
     nodejs-legacy npm \
     postgresql libpq-dev postgresql-contrib \
