@@ -15,9 +15,12 @@ else
 	chruby 2.2.2
 fi
 
-set -x
-if [ -e ".ci.sh"  ]; then
+if [ -n "$1"  ]; then
+	exec "$@"
+elif [ -e ".ci.sh"  ]; then
+	set -x
 	. .ci.sh
 else
+	set -x
 	. ci_run.sh
 fi

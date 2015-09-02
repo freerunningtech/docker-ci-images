@@ -74,4 +74,4 @@ export GEM_HOME=/cache
 export BUNDLE_APP_CONFIG=/cache
 export RAILS_ENV=test RACK_ENV=test
 
-exec gosu ci "$@"
+exec gosu ci bash /run_test.sh "$@"

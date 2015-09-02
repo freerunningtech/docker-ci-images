@@ -46,5 +46,4 @@ RUN curl -Lo /usr/local/bin/gosu https://github.com/tianon/gosu/releases/downloa
 
 WORKDIR /workspace
 ENTRYPOINT ["bash", "/init.sh"]
-CMD ["bash", "/run_test.sh"]
 ADD init.sh run_test.sh /
