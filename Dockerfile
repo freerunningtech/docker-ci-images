@@ -32,6 +32,7 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) con
     ruby ruby-dev \
     unzip zip \
     xvfb \
+    erlang \
     libmagickcore-dev imagemagick libmagickwand-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
