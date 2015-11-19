@@ -40,6 +40,8 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) con
 
 RUN npm install -g coffee phantomjs svgo karma-cli bower
 
+RUN pip install awscli
+
 ADD install_rubies.sh /
 RUN bash install_rubies.sh
 
