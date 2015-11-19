@@ -25,6 +25,7 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) con
     zlib1g zlib1g-dev \
     libyaml-dev libgdbm-dev libncurses5-dev libffi-dev libgmp3-dev \
     libxslt-dev libxml2-dev \
+    python python-pip \
     nodejs-legacy npm \
     postgresql libpq-dev postgresql-contrib \
     mysql-server libmysqlclient-dev \
@@ -38,6 +39,8 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) con
  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN npm install -g coffee phantomjs svgo karma-cli bower
+
+RUN pip install awscli
 
 ADD install_rubies.sh /
 RUN bash install_rubies.sh
