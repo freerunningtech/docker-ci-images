@@ -25,6 +25,7 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) con
     zlib1g zlib1g-dev \
     libyaml-dev libgdbm-dev libncurses5-dev libffi-dev libgmp3-dev \
     libxslt-dev libxml2-dev \
+    python python-pip \
     nodejs-legacy npm \
     postgresql libpq-dev postgresql-contrib \
     mysql-server libmysqlclient-dev \
