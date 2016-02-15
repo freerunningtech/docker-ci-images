@@ -35,6 +35,7 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) con
     unzip zip \
     xvfb \
     erlang \
+    parallel \
     libmagickcore-dev imagemagick libmagickwand-dev \
     qt5-default libqt5webkit5-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
