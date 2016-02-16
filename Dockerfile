@@ -40,7 +40,7 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) con
     qt5-default libqt5webkit5-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN npm install -g coffee phantomjs svgo karma-cli bower
+RUN npm install -g coffee phantomjs@1.9.19 svgo karma-cli bower
 
 RUN pip install awscli
 
