@@ -41,7 +41,12 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) con
     qt5-default libqt5webkit5-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN npm install -g coffee phantomjs@1.9.19 svgo karma-cli bower
+RUN npm install -g coffee svgo karma-cli bower
+
+RUN curl -Lo /tmp/phantomjs.tar.bz2 https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
+    tar -xjf /tmp/phantomjs.tar.bz2 -C /tmp && \
+    mv /tmp/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
+
 
 RUN pip install awscli
 
