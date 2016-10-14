@@ -79,4 +79,22 @@ BUNDLE_MIRROR__HTTPS://RUBYGEMS__ORG/: https://gems.stembolt.io/
 BUNDLE_MIRROR__HTTP://RUBYGEMS__ORG/: https://gems.stembolt.io/
 EOF
 
-exec gosu ci bash /run_test.sh "$@"
+# Restore node_modules from our cache, if we have one.
+if [ -d /cache/node_modules ] ; then
+	rm -fr /workspace/node_modules
+	cp -a /cache/node_modules /workspace/node_modules
+	chown -R ci /workspace/node_modules
+fi
+
+gosu ci bash /run_test.sh "$@"
+STATUS=$?
+
+# Copy node_modules out of workspace so we don't have to do a full install
+# every time.
+if [ -d /workspace/node_modules ] ; then
+	rm -fr /cache/node_modules
+	cp -a /workspace/node_modules /cache/node_modules
+	chown -R ci /cache/node_modules
+fi
+
+exit $STATUS
