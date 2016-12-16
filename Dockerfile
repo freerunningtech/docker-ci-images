@@ -6,15 +6,18 @@ ENV DEBIAN_FRONTEND noninteractive
 # the cluster with UTF-8
 # We also want curl as soon as possible
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y locales curl && \
+    apt-get install --no-install-recommends -y locales curl ca-certificates && \
     locale-gen "en_US.UTF-8" && \
     update-locale LANG=en_US.UTF-8 \
  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENV LANG en_US.utf8
 
-RUN echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) contrib" >> /etc/apt/sources.list && \
-    curl -L http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add - && \
+RUN \
+    echo "deb http://deb.nodesource.com/node_7.x $(lsb_release -sc) main" >> /etc/apt/sources.list && \
+    curl -sL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+    echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) contrib" >> /etc/apt/sources.list && \
+    curl -sL https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add - && \
     apt-get update && \
     apt-get install --no-install-recommends -y \
     build-essential \
@@ -27,7 +30,7 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) con
     libyaml-dev libgdbm-dev libncurses5-dev libffi-dev libgmp3-dev \
     libxslt-dev libxml2-dev \
     python python-pip python-dev \
-    nodejs-legacy npm \
+    nodejs \
     postgresql libpq-dev postgresql-contrib \
     mysql-server libmysqlclient-dev \
     sqlite3 libsqlite3-dev \
