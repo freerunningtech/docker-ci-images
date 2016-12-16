@@ -46,7 +46,7 @@ RUN \
     qt5-default libqt5webkit5-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN yarn global add coffee svgo karma-cli bower
+RUN yarn global add svgo karma-cli bower
 
 RUN curl -Lo /tmp/phantomjs.tar.bz2 https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
     tar -xjf /tmp/phantomjs.tar.bz2 -C /tmp && \
