@@ -15,9 +15,11 @@ ENV LANG en_US.utf8
 
 RUN \
     echo "deb http://deb.nodesource.com/node_7.x $(lsb_release -sc) main" >> /etc/apt/sources.list && \
-    curl -sL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+    curl -sS -L https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+    echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list.d/yarn.list && \
+    curl -sS -L https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
     echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) contrib" >> /etc/apt/sources.list && \
-    curl -sL https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add - && \
+    curl -sS -L https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add - && \
     apt-get update && \
     apt-get install --no-install-recommends -y \
     build-essential \
@@ -44,7 +46,7 @@ RUN \
     qt5-default libqt5webkit5-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN npm install -g coffee svgo karma-cli bower yarn
+RUN yarn global add coffee svgo karma-cli bower
 
 RUN curl -Lo /tmp/phantomjs.tar.bz2 https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
     tar -xjf /tmp/phantomjs.tar.bz2 -C /tmp && \
