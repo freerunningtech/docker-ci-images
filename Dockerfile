@@ -32,7 +32,7 @@ RUN \
     libyaml-dev libgdbm-dev libncurses5-dev libffi-dev libgmp3-dev \
     libxslt-dev libxml2-dev \
     python python-pip python-dev \
-    nodejs \
+    nodejs yarn \
     postgresql libpq-dev postgresql-contrib \
     mysql-server libmysqlclient-dev \
     sqlite3 libsqlite3-dev \
