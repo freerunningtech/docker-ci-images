@@ -14,7 +14,7 @@ RUN apt-get update && \
 ENV LANG en_US.utf8
 
 RUN \
-    echo "deb http://deb.nodesource.com/node_7.x $(lsb_release -sc) main" >> /etc/apt/sources.list && \
+    echo "deb http://deb.nodesource.com/node_6.x $(lsb_release -sc) main" >> /etc/apt/sources.list && \
     curl -sS -L https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list.d/yarn.list && \
     curl -sS -L https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
