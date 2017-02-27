@@ -11,6 +11,12 @@ CI_UID=$(stat -c "%u" /workspace)
 useradd ci -u "$CI_UID" -d /cache
 chown ci:ci /cache
 
+if [ -n "$ELASTICSEARCH" ]; then
+    service elasticsearch start
+
+    export ELASTICSEARCH_URL="http://127.0.0.1:9200"
+fi
+
 if [ -n "$POSTGRESQL" ]; then
 	# Make PostgreSQL YOLOFAST
 	# Suggestions from http://stackoverflow.com/questions/9407442/optimise-postgresql-for-fast-testing

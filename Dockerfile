@@ -20,7 +20,10 @@ RUN \
     curl -sS -L https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
     echo "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -sc) contrib" >> /etc/apt/sources.list && \
     curl -sS -L https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add - && \
+    echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu $(lsb_release -sc) main" >> /etc/apt/sources.list && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C2518248EEA14886 && \
     apt-get update && \
+    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
     apt-get install --no-install-recommends -y \
     build-essential \
     git-core \
@@ -44,7 +47,12 @@ RUN \
     parallel \
     libmagickcore-dev imagemagick libmagickwand-dev \
     qt5-default libqt5webkit5-dev \
- && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    oracle-java8-installer \
+ && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/oracle-jdk8-installer
+
+RUN \
+    curl -Lo elasticsearch.deb https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.1.1.deb && \
+    dpkg -i elasticsearch.deb
 
 RUN yarn global add svgo karma-cli bower
 
