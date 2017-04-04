@@ -8,7 +8,12 @@ set -e
 
 # We want to have the same UID as the user on the host system
 CI_UID=$(stat -c "%u" /workspace)
-useradd ci -u "$CI_UID" -d /cache
+if [ "$CI_UID" -eq "0" ]; then
+	echo "WARNING: /workspace is owned by root. Permissions may be wrong." 1>&2
+	useradd ci -d /cache
+else
+	useradd ci -u "$CI_UID" -d /cache
+fi
 chown ci:ci /cache
 
 if [ -n "$ELASTICSEARCH" ]; then
