@@ -45,6 +45,7 @@ RUN \
     xvfb \
     erlang \
     parallel \
+    ghostscript libgs-dev \
     libmagickcore-dev imagemagick libmagickwand-dev \
     qt5-default libqt5webkit5-dev \
     oracle-java8-installer \
