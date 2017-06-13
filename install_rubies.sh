@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This is run as root and is expected to setup all desired rubies
 set -ex
 
