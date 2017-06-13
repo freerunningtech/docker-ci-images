@@ -11,7 +11,19 @@ sudo make install
 cd /
 rm -Rf chruby-*
 
-RUBY_VERSIONS="2.3.0 2.2.2 2.2.3 2.2.5 2.1.6 2.1.7 2.1.10 2.3.1"
+RUBY_VERSIONS="
+2.3.1
+2.3.0
+
+2.2.5
+2.2.3
+2.2.2
+
+2.1.10
+2.1.7
+2.1.6
+"
+
 mkdir -p /opt/rubies
 
 for ruby_version in $RUBY_VERSIONS; do
