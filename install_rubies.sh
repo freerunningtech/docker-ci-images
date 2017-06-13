@@ -28,10 +28,10 @@ RUBY_VERSIONS="
 mkdir -p /opt/rubies
 
 for ruby_version in $RUBY_VERSIONS; do
-	curl -L "http://rubies.travis-ci.org/ubuntu/14.04/x86_64/ruby-${ruby_version}.tar.bz2" | tar -xjC /opt/rubies/
-	(
-	. /usr/local/share/chruby/chruby.sh
-	chruby "$ruby_version"
-	gem install --no-ri --no-rdoc bundler
-	)
+    curl -L "http://rubies.travis-ci.org/ubuntu/14.04/x86_64/ruby-${ruby_version}.tar.bz2" | tar -xjC /opt/rubies/
+    (
+    . /usr/local/share/chruby/chruby.sh
+    chruby "$ruby_version"
+    gem install --no-ri --no-rdoc bundler
+    )
 done
