@@ -12,6 +12,7 @@ cd /
 rm -Rf chruby-*
 
 RUBY_VERSIONS="
+2.3.4
 2.3.1
 2.3.0
 
