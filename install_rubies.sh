@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This is run as root and is expected to setup all desired rubies
 set -ex
 
@@ -9,14 +11,27 @@ sudo make install
 cd /
 rm -Rf chruby-*
 
-RUBY_VERSIONS="2.3.0 2.2.2 2.2.3 2.2.5 2.1.6 2.1.7 2.1.10 2.3.1"
+RUBY_VERSIONS="
+2.3.4
+2.3.1
+2.3.0
+
+2.2.5
+2.2.3
+2.2.2
+
+2.1.10
+2.1.7
+2.1.6
+"
+
 mkdir -p /opt/rubies
 
 for ruby_version in $RUBY_VERSIONS; do
-	curl -L "http://rubies.travis-ci.org/ubuntu/14.04/x86_64/ruby-${ruby_version}.tar.bz2" | tar -xjC /opt/rubies/
-	(
-	. /usr/local/share/chruby/chruby.sh
-	chruby "$ruby_version"
-	gem install --no-ri --no-rdoc bundler
-	)
+    curl -L "http://rubies.travis-ci.org/ubuntu/14.04/x86_64/ruby-${ruby_version}.tar.bz2" | tar -xjC /opt/rubies/
+    (
+    . /usr/local/share/chruby/chruby.sh
+    chruby "$ruby_version"
+    gem install --no-ri --no-rdoc bundler
+    )
 done
