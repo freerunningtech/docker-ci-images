@@ -84,5 +84,6 @@ cat > "$BUNDLE_APP_CONFIG/config" <<EOF
 BUNDLE_MIRROR__HTTPS://RUBYGEMS__ORG/: https://gems.stembolt.io/
 BUNDLE_MIRROR__HTTP://RUBYGEMS__ORG/: https://gems.stembolt.io/
 EOF
+chown ci:ci "$BUNDLE_APP_CONFIG/config"
 
 exec gosu ci bash /run_test.sh "$@"
